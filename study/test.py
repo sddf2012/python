@@ -1,3 +1,4 @@
+import pygame
 #4.3
 # for a in range(1,21,2):
 #     print(a)
@@ -27,3 +28,5 @@ def food(*args):
      
      print('food contains',args)
 food(1,2,3,4)
+
+print(pygame.font.get_fonts())
