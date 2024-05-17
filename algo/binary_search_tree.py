@@ -1,16 +1,10 @@
-class Node:
-    def __init__(self, val: int) -> None:
-        self.val = val
-        self.left = None
-        self.right = None
-
-    def __repr__(self):
-        # if self is None:
-        #     return "None"
-        return f"Node({self.val!r},left:{self.left.val if self.left else 'None'},right:{self.right.val if self.right else 'None'})"
+from tree_basic import Node
+from tree_basic import Tree
+from tree_basic import visualize_tree
+import os
 
 
-class Tree:
+class BSTTree(Tree):
     def __init__(self, root: Node):
         self.root = root
 
@@ -104,7 +98,7 @@ class Tree:
 
             # 方法2 选择右子树中的最小值替代被删除节点
             self.delete(min.val)
-            current.val=min.val
+            current.val = min.val
             # if min_parent != current:
             #     min.right = current.right
             #     min_parent.left = None
@@ -139,13 +133,16 @@ n6.right = n7
 n10.right = n14
 n14.left = n13
 
-tree = Tree(n8)
+tree = BSTTree(n8)
 
 
 # print(searchByValue(root, 3))
 
 
 print(tree.midSerach())
+output_path=visualize_tree(tree).render("tree", format="png", view=False)
+print(f"File saved to {output_path}")
+print(f"Current directory contents: {os.listdir('.')}")
 # insert(root, 2)
 # insert(root, 5)
 # insert(root, 100)
@@ -153,7 +150,7 @@ print(tree.midSerach())
 # midSerach(root)
 # print(values)
 
-tree.delete(6)
-print(tree.root)
-print(n3)
-print(tree.midSerach())
+# tree.delete(6)
+# print(tree.root)
+# print(n3)
+# print(tree.midSerach())
