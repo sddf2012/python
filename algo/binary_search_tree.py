@@ -1,6 +1,7 @@
 from tree_basic import Node
 from tree_basic import Tree
-from tree_basic import visualize_tree
+from tree_basic import plot_tree
+
 import os
 
 
@@ -18,7 +19,7 @@ class BSTTree(Tree):
     def _midSerach(self, node: Node, values):
         if node.left:
             self._midSerach(node.left, values)
-        values.append(node.val)
+        values.append(node)
         if node.right:
             self._midSerach(node.right, values)
 
@@ -114,43 +115,30 @@ class BSTTree(Tree):
             # current = None
 
 
-n1 = Node(1)
-n3 = Node(3)
-n4 = Node(4)
-n6 = Node(6)
-n7 = Node(7)
-n8 = Node(8)
-n10 = Node(10)
-n13 = Node(13)
-n14 = Node(14)
+# n1 = Node(1)
+# n3 = Node(3)
+# n4 = Node(4)
+# n6 = Node(6)
+# n7 = Node(7)
+# n8 = Node(8)
+# n10 = Node(10)
+# n13 = Node(13)
+# n14 = Node(14)
 
-n8.left = n3
-n8.right = n10
-n3.left = n1
-n3.right = n6
-n6.left = n4
-n6.right = n7
-n10.right = n14
-n14.left = n13
+# n8.left = n3
+# n8.right = n10
+# n3.left = n1
+# n3.right = n6
+# n6.left = n4
+# n6.right = n7
+# n10.right = n14
+# n14.left = n13
 
-tree = BSTTree(n8)
+# tree = BSTTree(n8)
 
 
 # print(searchByValue(root, 3))
 
 
-print(tree.midSerach())
-output_path=visualize_tree(tree).render("tree", format="png", view=False)
-print(f"File saved to {output_path}")
-print(f"Current directory contents: {os.listdir('.')}")
-# insert(root, 2)
-# insert(root, 5)
-# insert(root, 100)
-# insert(root, 1)
-# midSerach(root)
-# print(values)
-
-# tree.delete(6)
-# print(tree.root)
-# print(n3)
 # print(tree.midSerach())
+# plot_tree(tree)

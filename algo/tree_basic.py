@@ -1,4 +1,4 @@
-from graphviz import Digraph
+import matplotlib.pyplot as plt
 
 
 class Node:
@@ -12,10 +12,15 @@ class Node:
 
 
 class BBSTNode(Node):
-    def __init__(self, node: Node) -> None:
-        self.val = node.val
-        self.left = node.left
-        self.right = node.right
+    def __init__(self, node: Node = None, val=None) -> None:
+        if node:
+            self.val = node.val
+            self.left = node.left
+            self.right = node.right
+        if val:
+            self.val = val
+            self.left = None
+            self.right = None
         self.height = 0
 
     def __repr__(self):
@@ -27,21 +32,32 @@ class Tree:
         self.root = root
 
 
-def visualize_tree(tree: Tree):
-    if not tree:
-        return None
-    dot = Digraph()
-    add_nodes_edges(dot, tree.root)
-    return dot
+def _plot_tree(node, x=0, y=0, dx=1, dy=1, ax=None):
+    if ax is None:
+        fig, ax = plt.subplots()
+
+    if node is not None:
+        ax.text(
+            x,
+            y,
+            str(node.val),
+            ha="center",
+            va="center",
+            bbox=dict(facecolor="white", edgecolor="black", boxstyle="circle"),
+        )
+
+        if node.left is not None:
+            ax.plot([x, x - dx], [y, y - dy], "k-")
+            _plot_tree(node.left, x - dx, y - dy, dx / 2, dy, ax)
+
+        if node.right is not None:
+            ax.plot([x, x + dx], [y, y - dy], "k-")
+            _plot_tree(node.right, x + dx, y - dy, dx / 2, dy, ax)
+    return ax
 
 
-def add_nodes_edges(graph: Digraph, node: Node):
-    if not node:
-        return
-    graph.node(str(node.val))
-    while node.left:
-        graph.edge(str(node.val), str(node.left.val))
-        add_nodes_edges(graph, node.left)
-    while node.right:
-        graph.edge(str(node.val), str(node.right.val))
-        add_nodes_edges(graph, node.right)
+def plot_tree(tree: Tree):
+    ax = _plot_tree(tree.root)
+    ax.set_aspect("equal")
+    ax.axis("off")
+    plt.show()
